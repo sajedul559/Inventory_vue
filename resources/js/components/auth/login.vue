@@ -18,14 +18,17 @@
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
                                     <form  @submit.prevent="login" class="user">
-                                        <div class="form-group">
+                                        
+                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address..." v-model="form.email" autocomplete="username">
+                                                id="exampleInputEmail" placeholder="Enter Email Address..." v-model="form.email" autocomplete="email">
+                                                <small class="text-danger" v-if="errors.email">{{errors.email[0]}}</small>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password" v-model="form.password" autocomplete="current-password">
+                                                <small class="text-danger" v-if="errors.password">{{errors.password[0]}}</small>
+
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -70,26 +73,46 @@
 import axios from 'axios'
 
 export default{
+    created(){
+        if(User.loggedIn()){
+            this.$router.push({name:'home'})
+        }
+
+    },
     data(){
         return {
             form:{
                 email:null,
                 password:null
+            },
+            errors:{
+
             }
         }
+      
     },
     methods:{
         login(){
-            // axios.post('/api/auth/login',this.form)
-            // .then(res => console.log(res.data))
-            // .catch(error => console.log(error.data))
-
+        
 
            axios.post('/api/auth/login',this.form)
-           .then(res => User.responseAfterLogin(res))
-           .catch(error => console.log(error.data))   
+            .then(res => { User.responseAfterLogin(res)
+
+            Toast.fire({
+                icon: 'success',
+                title: 'Signed in successfully'
+                })
+                 this.$router.push({name: 'home'})
             
-       
+           })
+           .catch(error => this.errors = error.response.data.errors)   
+            
+          .catch(
+            Toast.fire({
+            icon: 'warning',
+            title: 'Invalid Email or Password!'
+            })
+          )
         }
     }
 }
