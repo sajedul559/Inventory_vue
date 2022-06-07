@@ -13,6 +13,8 @@
  
  //Router Imported
  import {routes} from './routes'
+ import User from './Helpers/User'
+ window.User = User;
 
  
  const router = new VueRouter({

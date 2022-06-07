@@ -83,12 +83,13 @@ export default{
             // axios.post('/api/auth/login',this.form)
             // .then(res => console.log(res.data))
             // .catch(error => console.log(error.data))
+
+
            axios.post('/api/auth/login',this.form)
-           .then((response) => {
-            console.log(response.data);
-        }).catch((error) => {
-            console.warn('Not good man :(');
-        })
+           .then(res => User.responseAfterLogin(res))
+           .catch(error => console.log(error.data))   
+            
+       
         }
     }
 }
