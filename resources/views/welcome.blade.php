@@ -36,7 +36,7 @@
         <div id="wrapper">
 
             <!-- Sidebar -->
-            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" id="leftbar" style="display: none" v-show="$route.path === '/' || $route.path === '/signup' || $route.path ==='/forget'  ? false : true ">
 
                 <!-- Sidebar - Brand -->
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -167,7 +167,7 @@
                 <div id="content">
 
                     <!-- Topbar -->
-                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" id="topbar" style="display: none" v-show="$route.path === '/' || $route.path === '/signup' || $route.path ==='/forget' ? false : true ">
 
                         <!-- Sidebar Toggle (Topbar) -->
                         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -398,6 +398,16 @@
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('js/app.js')}}"></script>
     <script src="{{asset('backend/vendor/jquery/jquery.min.js')}}"></script>
+
+    <script>
+        let token = localStorage.getItem('token');
+        if(token){
+            $("#topbar").css("display"," ");
+            $("#leftbar").css("display"," ");
+
+
+        }
+    </script>
     <script src="{{asset('backend/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
     <!-- Core plugin JavaScript-->

@@ -22,7 +22,7 @@
                                             <label for="">Existing Email Address</label>
                                             <input type="email" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Existing Email Address...">
+                                                placeholder="Existing Email Address..." v-model="form.email">
                                         </div>
                                        
                                         
@@ -52,6 +52,28 @@
 </template>
 
 <script>
+import axios from 'axios'
+
+export default{
+    created(){
+        if(User.loggedIn()){
+            this.$router.push({name:'home'})
+        }
+
+    },
+    data(){
+        return {
+            form:{
+                email:null
+            },
+            errors:{
+
+            }
+        }    
+    },
+   
+}
+
 </script>
 
 <style>
