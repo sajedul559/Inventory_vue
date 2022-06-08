@@ -358,10 +358,10 @@
                                         Activity Log
                                     </a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <router-link class="dropdown-item" to="/logout" data-toggle="modal">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Logout
-                                    </a>
+                                    </router-link>
                                 </div>
                             </li>
 
@@ -398,7 +398,7 @@
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('js/app.js')}}"></script>
     <script src="{{asset('backend/vendor/jquery/jquery.min.js')}}"></script>
-    {{-- <script src="{{asset('backend/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script> --}}
+    <script src="{{asset('backend/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="{{asset('backend/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
@@ -410,8 +410,8 @@
     {{-- <script src="{{asset('backend/vendor/chart.js/Chart.min.js')}}"></script> --}}
 
     <!-- Page level custom scripts -->
-    {{-- <script src="{{asset('backend/js/demo/chart-area-demo.js')}}"></script> --}}
-    {{-- <script src="{{asset('backend/js/demo/chart-pie-demo.js')}}"></script> --}}
+    {{-- <script src="{{asset('backend/js/demo/chart-area-demo.js')}}"></script>
+    <script src="{{asset('backend/js/demo/chart-pie-demo.js')}}"></script> --}}
 
 </body>
 

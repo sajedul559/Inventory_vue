@@ -53,7 +53,7 @@
                                         <router-link class="small" to="/forget">Forget Password?</router-link>
                                     </div>
                                     <div class="text-center">
-                                        <router-link class="small" to="/register">Create an Account!</router-link>
+                                        <router-link class="small" to="/signup">Create an Account!</router-link>
                                     </div>
                                 </div>
                             </div>
