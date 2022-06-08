@@ -51,31 +51,43 @@
 
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.html">
+                    <router-link class="nav-link" to="/home">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Dashboard</span></a>
+                        <span>Dashboard</span></router-link>
                 </li>
 
                 <!-- Divider -->
                 <hr class="sidebar-divider">
 
-                <!-- Heading -->
+                {{-- <!-- Heading -->
                 <div class="sidebar-heading">
                     Interface
-                </div>
+                </div> --}}
 
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                        aria-expanded="true" aria-controls="collapseTwo">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#employee"
+                        aria-expanded="true" aria-controls="employee">
                         <i class="fas fa-fw fa-cog"></i>
-                        <span>Components</span>
+                        <span>Employe</span>
                     </a>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div id="employee" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Custom Components:</h6>
-                            <a class="collapse-item" href="buttons.html">Buttons</a>
-                            <a class="collapse-item" href="cards.html">Cards</a>
+                            <router-link class="collapse-item" to="/employee">Add Employee</router-link>
+                            <router-link class="collapse-item" to="buttons.html">All Employee</router-link>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" to="#" data-toggle="collapse" data-target="#supllier"
+                        aria-expanded="true" aria-controls="supllier">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Supplier</span>
+                    </a>
+                    <div id="supllier" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <router-link class="collapse-item" to="buttons.html">Add Supplier</router-link>
+                            <router-link class="collapse-item" to="buttons.html">All Supplier</router-link>
                         </div>
                     </div>
                 </li>

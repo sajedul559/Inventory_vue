@@ -13,9 +13,14 @@
  
  //Router Imported
  import {routes} from './routes'
+ 
+ //import user class
  import User from './Helpers/User'
  window.User = User;
+ //import notification class
 
+import Notification from './Helpers/Notification'
+ window.User = Notification;
  //sweet alert start
  import Swal from 'sweetalert2'
  window.Swal = Swal;
