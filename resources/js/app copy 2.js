@@ -20,8 +20,8 @@
  //import notification class
 
 import Notification from './Helpers/Notification'
- window.User = Notification;
- //sweet alert start
+ window.Notification = Notification;
+ //sweet alert start 
  import Swal from 'sweetalert2'
  window.Swal = Swal;
 

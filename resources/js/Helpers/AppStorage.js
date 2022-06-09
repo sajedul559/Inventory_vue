@@ -24,6 +24,9 @@ class AppStorage{
     {
         localStorage.getItem('user');
     }
+    test(){
+        return console.log('testing successfully');
+    }
 }
 
 export default AppStorage = new AppStorage();

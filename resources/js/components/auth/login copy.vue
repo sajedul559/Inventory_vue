@@ -72,10 +72,11 @@
 <script>
 
 export default{
-     created(){
+    mounted(){
         if(User.loggedIn()){
-            this.$router.push({name : 'home'})
+            this.$router.push({name:'/home'})
         }
+
     },
     data(){
         return {

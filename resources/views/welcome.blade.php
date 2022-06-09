@@ -73,11 +73,12 @@
                     </a>
                     <div id="employee" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <router-link class="collapse-item" to="/employee">Add Employee</router-link>
-                            <router-link class="collapse-item" to="buttons.html">All Employee</router-link>
+                            <router-link class="collapse-item" to="/store_employee">Add Employee</router-link>
+                            <router-link class="collapse-item" to="/employee">All Employee</router-link>
                         </div>
                     </div>
                 </li>
+                
                 <li class="nav-item">
                     <a class="nav-link collapsed" to="#" data-toggle="collapse" data-target="#supllier"
                         aria-expanded="true" aria-controls="supllier">
@@ -413,6 +414,8 @@
 
     <script>
         let token = localStorage.getItem('token');
+        
+
         if(token){
             $("#topbar").css("display"," ");
             $("#leftbar").css("display"," ");

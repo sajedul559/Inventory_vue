@@ -28,6 +28,9 @@ class User{
         return this.hastoken()
     }
 
+    loginCheck(){
+        return this.hastoken();
+    }
     logout(){
         AppStorage.clear()
     }
@@ -44,6 +47,9 @@ class User{
            return payload.sub
         }
         return false
+    }
+    test(){
+        return console.log('testing successfully updated');
     }
 
 
