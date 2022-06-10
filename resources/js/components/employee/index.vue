@@ -11,7 +11,7 @@
      <div class="card">
             <div class="card-header">
                <i class="fas fa-chart-area"></i>Employee Insert
-               <router-link to="/store_employee" class="btn btn-sm btn-info" id="add_new">Add New</router-link>
+               <router-link to="/store_employee" class="btn btn-sm btn-info float-right" id="add_new">Add New</router-link>
             </div>
 
 
@@ -19,8 +19,49 @@
                 
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
-                    <div class="row">
+                    <div class="">
+                         <div class="card shadow mb-4">
                         
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <label>Search</label>
+                                 <input type="text"  v-model="searchTerm" class="form-control " style="width:200px;">
+                                <table class="table table-bordered mt-2" width="100%" cellspacing="0" >
+                                    <thead class="" >
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Photo</th>
+                                            <th>Phone</th>
+                                            <th>Salary</th>
+                                            <th>Joining Data</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <tr v-for="employee in filtersearch " :key="employee.id">
+
+                                            <td>{{ employee.name}}</td>
+                                            <td>
+                                                <img :src="employee.photo" alt="" id="em_photo">
+                                            </td>
+
+                                            <td>{{ employee.phone}}</td>
+                                            <td>{{ employee.salary}}</td>
+                                            <td>{{ employee.joining_date}}</td>
+                                            <td>
+                                                <a href="" class="btn btn-sm btn-info">Edit</a>
+                                                <a href="" class="btn btn-sm btn-danger">Delete</a>
+
+                                            </td>
+
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -38,9 +79,38 @@ export default {
             })
         }
     },
+    data(){
+        return{
+         employees:[],
+         searchTerm:''
+        }
+        
+    },
+    computed:{
+      filtersearch(){
+        return  this.employees.filter(employee => {
+          return    employee.phone.match(this.searchTerm)
+          })
+      }
+      
+    },
+    methods:{
+        allEmployee(){
+            
+            axios.get('/api/employee/')
+            .then(({data}) => (this.employees = data))
+            .catch()
+        }
+    },
+    created(){
+        this.allEmployee();
+    }
 }
 </script>
 
 <style>
-
+#em_photo{
+    height:40px;
+    width:40px;
+}
 </style>
