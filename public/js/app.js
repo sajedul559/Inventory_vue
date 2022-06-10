@@ -5761,13 +5761,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mounted: function mounted() {
@@ -5785,6 +5778,7 @@ __webpack_require__.r(__webpack_exports__);
         salary: '',
         address: '',
         photo: '',
+        phone: '',
         nid: '',
         joining_date: ''
       },
@@ -5815,7 +5809,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/employee/', this.form).then(function () {
         _this2.$router.push({
-          name: 'employee '
+          name: 'employee'
         });
 
         Notification.success();
@@ -37266,7 +37260,7 @@ var render = function () {
                           staticClass: "form-control form-control-user",
                           attrs: {
                             type: "text",
-                            id: "fullname",
+                            id: "name",
                             placeholder: "Enter your fullname",
                           },
                           domProps: { value: _vm.form.name },
@@ -37301,7 +37295,7 @@ var render = function () {
                           attrs: {
                             type: "email",
                             id: "email",
-                            placeholder: "Email Address",
+                            placeholder: "Enter email Address",
                           },
                           domProps: { value: _vm.form.email },
                           on: {
@@ -37405,7 +37399,7 @@ var render = function () {
                           ],
                           staticClass: "form-control form-control-user",
                           attrs: {
-                            type: "text",
+                            type: "date",
                             id: "joining_date",
                             placeholder: "Joining Date...",
                           },
@@ -37467,7 +37461,35 @@ var render = function () {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group row" }, [
-                      _c("div", { staticClass: "col-sm-6 mb-3 mb-sm-0" }, [
+                      _c("div", { staticClass: "col-sm-4 mb-3 mb-sm-0" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.phone,
+                              expression: "form.phone",
+                            },
+                          ],
+                          staticClass: "form-control form-control-user",
+                          attrs: {
+                            type: "text",
+                            id: "phone",
+                            placeholder: "Phone Number",
+                          },
+                          domProps: { value: _vm.form.phone },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "phone", $event.target.value)
+                            },
+                          },
+                        }),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-5 mb-3 mb-sm-0" }, [
                         _c("input", {
                           staticClass: "btn btn-info form-control ",
                           attrs: { type: "file" },
@@ -37481,82 +37503,10 @@ var render = function () {
                           : _vm._e(),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-6 mb-3 mb-sm-0" }, [
+                      _c("div", { staticClass: "col-sm-3 mb-3 mb-sm-0" }, [
                         _c("img", {
                           staticStyle: { height: "40px", width: "40px" },
                           attrs: { src: _vm.form.photo },
-                        }),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c("div", { staticClass: "col-sm-6 mb-3 mb-sm-0" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.password,
-                              expression: "form.password",
-                            },
-                          ],
-                          staticClass: "form-control form-control-user",
-                          attrs: {
-                            type: "password",
-                            id: "exampleInputPassword",
-                            placeholder: "Password",
-                          },
-                          domProps: { value: _vm.form.password },
-                          on: {
-                            input: function ($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.form,
-                                "password",
-                                $event.target.value
-                              )
-                            },
-                          },
-                        }),
-                        _vm._v(" "),
-                        _vm.errors.password
-                          ? _c("small", { staticClass: "text-danger" }, [
-                              _vm._v(_vm._s(_vm.errors.password[0])),
-                            ])
-                          : _vm._e(),
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-6" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.password_confirmation,
-                              expression: "form.password_confirmation",
-                            },
-                          ],
-                          staticClass: "form-control form-control-user",
-                          attrs: {
-                            type: "password",
-                            id: "exampleRepeatPassword",
-                            placeholder: "Repeat Password",
-                          },
-                          domProps: { value: _vm.form.password_confirmation },
-                          on: {
-                            input: function ($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.form,
-                                "password_confirmation",
-                                $event.target.value
-                              )
-                            },
-                          },
                         }),
                       ]),
                     ]),

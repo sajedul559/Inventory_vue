@@ -31,14 +31,14 @@
                                 <div class="form-group row">
 
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="fullname"
+                                        <input type="text" class="form-control form-control-user" id="name"
                                             placeholder="Enter your fullname" v-model="form.name">
                                         <small class="text-danger" v-if="errors.name">{{errors.name[0]}}</small>
 
                                     </div>
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="email" class="form-control form-control-user" id="email"
-                                            placeholder="Email Address" v-model="form.email">
+                                            placeholder="Enter email Address" v-model="form.email">
                                     <small class="text-danger" v-if="errors.email">{{errors.email[0]}}</small>
 
                                     </div>
@@ -61,7 +61,7 @@
                                 <div class="form-group row">
 
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="joining_date"
+                                        <input type="date" class="form-control form-control-user" id="joining_date"
                                             placeholder="Joining Date..." v-model="form.joining_date">
                                         <small class="text-danger" v-if="errors.joining_date">{{errors.joining_date[0]}}</small>
 
@@ -74,30 +74,23 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <div class="col-sm-4 mb-3 mb-sm-0">
+                                        <input type="text" class="form-control form-control-user"
+                                            id="phone" placeholder="Phone Number" v-model="form.phone">
 
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                    </div>
+
+                                    <div class="col-sm-5 mb-3 mb-sm-0">
                                         <input type="file" class="btn btn-info form-control " @change="onFileSelected">
                                         <small class="text-danger" v-if="errors.photo">{{errors.photo[0]}}</small>
 
                                     </div>
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <div class="col-sm-3 mb-3 mb-sm-0">
                                         <img :src="form.photo" style="height:40px; width:40px;">
 
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password" v-model="form.password">
-                                        <small class="text-danger" v-if="errors.password">{{errors.password[0]}}</small>
-
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password" v-model="form.password_confirmation">
-
-                                    </div>
-                                </div>
+                               
                                 <button  type="submit" class="btn btn-primary btn-user btn-block">
                                     Register Account
                                 </button>
@@ -143,6 +136,7 @@ export default{
                 salary:'',
                 address:'',
                 photo:'',
+                phone:'',
                 nid:'',
                 joining_date:'',
 
@@ -170,13 +164,14 @@ export default{
         }
         },
         employeeInsert(){
-            axios.post('/api/employee/',this.form)
-            .then(()=>{
-                this.$router.push({name:'employee '})
-                Notification.success()
-            })
-            .catch(error => this.errors = error.response.data.errors)
+          axios.post('/api/employee/',this.form)
+          .then(() => {
+               this.$router.push({ name:'employee'})
+               Notification.success();
 
+          })
+          .catch( error => this.errors = error.response.data.errors)
+            
         },
     }
    
