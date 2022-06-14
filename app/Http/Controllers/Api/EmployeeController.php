@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Employee;
 Use Image;
+Use DB;
 
 class EmployeeController extends Controller
 {
@@ -40,7 +41,6 @@ class EmployeeController extends Controller
             $image = $request->photo;
             $position = strpos($request->photo,';');
             $sub = substr($request->photo,0,$position);
-
             $ext = explode('/',$sub)[1];
             $name = time().".".$ext;
             $img = Image::make($image)->resize(200,200);
@@ -83,7 +83,8 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        //
+        $employee = DB::table('employees')->where('id',$id)->first();
+        return response()->json($employee);
     }
 
     /**
@@ -106,7 +107,66 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+       // return $request->all();
+        $data = array();
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
+        $data['phone'] = $request->phone;
+        $data['address'] = $request->address;
+        $data['salary'] = $request->salary;
+        $data['nid'] = $request->nid;
+        $data['joining_date'] = $request->joining_date;
+        
+
+        if($request->newphoto)
+        {
+
+            $image = $request->newphoto;
+            $position = strpos($request->newphoto,';');
+            $sub = substr($request->newphoto, 0 ,$position);            
+            $ext = explode('/',$sub)[1];
+            $name = time().".".$ext;
+            $img = Image::make($image)->resize(200,200);
+            $upload_path = 'backend/employee/';
+            $image_url = $upload_path.$name;
+            $success =  $img->save($image_url);
+            if($success)
+            {
+              $img = Employee::findorfail($id);
+              $image_path = $img->photo;
+
+              if($image_path){
+                 unlink($image_path);
+                $data['photo'] = $image_url;
+                $user = Employee::findorfail($id)->update($data);
+
+
+              }
+              else{
+
+                $img = Employee::findorfail($id);
+                $image_path = $img->photo;
+
+              
+                $data['photo'] = $image_url;
+                $user = Employee::findorfail($id)->update($data); $user = Employee::findorfail($id)->update($data);
+
+              }
+              
+            }
+           
+        }
+         else
+         {
+
+               $oldlogo = $request->photo;
+                $data['photo']= $oldlogo;
+                $user = Employee::findorfail($id)->update($data);
+            }
+
+        
+         
     }
 
     /**
@@ -117,6 +177,17 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+       $employee = Employee::findorfail($id)->first();
+       //return response()->json($employee);
+       if($employee->photo){
+        unlink($employee->photo);
+        $employee->delete();
+
+       }
+       else{
+        return "unlink else";
+        $employee = Employee::findorfail($id)->delete();
+
+       }
     }
 }
