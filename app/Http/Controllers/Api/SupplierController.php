@@ -4,12 +4,18 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Employee;
-Use Image;
-Use DB;
+use App\Models\Supplier;
+use Image;
+use DB;
 
-class EmployeeController extends Controller
+class SupplierController extends Controller
 {
+
+    // public function __construct()
+    // {
+    //     $this->middleware('JWT', ['except' => ['login','signup']]);
+    // }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,11 +23,11 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employee = Employee::all();
-        return response()->json($employee);
+        $supllier = Supplier::all();
+        return response()->json($supllier);
     }
 
-   
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -32,9 +38,9 @@ class EmployeeController extends Controller
     {
         
         $validatedData = $request->validate([
-            'name' =>'required|unique:employees|max:255',
+            'name' =>'required|unique:suppliers|max:255',
             'email' =>'required',
-            'phone' =>'required|unique:employees',
+            'phone' =>'required|unique:suppliers',
 
         ]);
         if($request->photo){
@@ -44,35 +50,32 @@ class EmployeeController extends Controller
             $ext = explode('/',$sub)[1];
             $name = time().".".$ext;
             $img = Image::make($image)->resize(200,200);
-            $upload_path = 'backend/employee/';
+            $upload_path = 'backend/supplier/';
             $image_url = $upload_path.$name;
             $img->save($image_url);
 
-            $employee = new Employee;
-            $employee->name = $request->name;
-            $employee->email = $request->email;
-            $employee->phone = $request->phone;
-            $employee->address = $request->address;
-            $employee->salary = $request->salary;
-            $employee->nid = $request->nid;
-            $employee->joining_date = $request->joining_date;
-            $employee->photo = $image_url;
-            $employee->save();
+            $supplier = new Supplier;
+            $supplier->name = $request->name;
+            $supplier->email = $request->email;
+            $supplier->phone = $request->phone;
+            $supplier->address = $request->address;      
+            $supplier->photo = $image_url;
+            $supplier->shopname = $request->shopname;
+
+            $supplier->save();
 
         }
         else{
 
-            $employee = new Employee;
-            $employee->name = $request->name;
-            $employee->email = $request->email;
-            $employee->phone = $request->phone;
-            $employee->address = $request->address;
-            $employee->salary = $request->salary;
-            $employee->nid = $request->nid;
-            $employee->joining_date = $request->joining_date;
-            $employee->save();
+            $supplier = new Supplier;
+            $supplier->name = $request->name;
+            $supplier->email = $request->email;
+            $supplier->phone = $request->phone;
+            $supplier->address = $request->address;
+            $supplier->salary = $request->salary;
+            $supplier->shopname = $request->shopname;
+            $supplier->save();
         }
-         
     }
 
     /**
@@ -83,11 +86,11 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        $employee = DB::table('employees')->where('id',$id)->first();
-        return response()->json($employee);
+        $supplier = DB::table('suppliers')->where('id',$id)->first();
+        return response()->json($supplier);
     }
 
-    
+   
     /**
      * Update the specified resource in storage.
      *
@@ -97,16 +100,12 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-       // return $request->all();
         $data = array();
         $data['name'] = $request->name;
         $data['email'] = $request->email;
         $data['phone'] = $request->phone;
         $data['address'] = $request->address;
-        $data['salary'] = $request->salary;
-        $data['nid'] = $request->nid;
-        $data['joining_date'] = $request->joining_date;
+        $data['shopname'] = $request->shopname;
         
 
         if($request->newphoto)
@@ -118,29 +117,29 @@ class EmployeeController extends Controller
             $ext = explode('/',$sub)[1];
             $name = time().".".$ext;
             $img = Image::make($image)->resize(200,200);
-            $upload_path = 'backend/employee/';
+            $upload_path = 'backend/supplier/';
             $image_url = $upload_path.$name;
             $success =  $img->save($image_url);
             if($success)
             {
-              $img = Employee::findorfail($id);
+              $img = Supplier::findorfail($id);
               $image_path = $img->photo;
 
               if($image_path){
                  unlink($image_path);
                 $data['photo'] = $image_url;
-                $user = Employee::findorfail($id)->update($data);
+                $user = Supplier::findorfail($id)->update($data);
 
 
               }
               else{
 
-                $img = Employee::findorfail($id);
+                $img = Supplier::findorfail($id);
                 $image_path = $img->photo; 
 
               
                 $data['photo'] = $image_url;
-                $user = Employee::findorfail($id)->update($data); $user = Employee::findorfail($id)->update($data);
+                $user = Supplier::findorfail($id)->update($data); 
 
               }
               
@@ -152,11 +151,8 @@ class EmployeeController extends Controller
 
                $oldlogo = $request->photo;
                 $data['photo']= $oldlogo;
-                $user = Employee::findorfail($id)->update($data);
+                $user = Supplier::findorfail($id)->update($data);
             }
-
-        
-         
     }
 
     /**
@@ -167,17 +163,18 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-       $employee = Employee::findorfail($id)->first();
+       $supplier = Supplier::findorfail($id)->first();
        //return response()->json($employee);
-       if($employee->photo){
-        unlink($employee->photo);
-        $employee->delete();
+       if($supplier->photo){
+        unlink($supplier->photo);
+        $supplier->delete();
 
        }
        else{
-        return "unlink else";
-        $employee = Employee::findorfail($id)->delete();
+        $supplier = Supplier::findorfail($id)->delete();
 
        }
     }
 }
+
+
