@@ -94,6 +94,45 @@
                         </div>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" to="#" data-toggle="collapse" data-target="#category"
+                        aria-expanded="true" aria-controls="category">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Cateogies</span>
+                    </a>
+                    <div id="category" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <router-link class="collapse-item" to="/store_category">Add Category</router-link>
+                            <router-link class="collapse-item" to="/category">All Category</router-link>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" to="#" data-toggle="collapse" data-target="#product"
+                        aria-expanded="true" aria-controls="product">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Product</span>
+                    </a>
+                    <div id="product" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <router-link class="collapse-item" to="/store_product">Add Product</router-link>
+                            <router-link class="collapse-item" to="/product">All Product</router-link>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" to="#" data-toggle="collapse" data-target="#test"
+                        aria-expanded="true" aria-controls="test">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Test</span>
+                    </a>
+                    <div id="test" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <router-link class="collapse-item" to="/store_test">Add Test</router-link>
+                            <router-link class="collapse-item" to="/test">All Test</router-link>
+                        </div>
+                    </div>
+                </li>
 
                 <!-- Nav Item - Utilities Collapse Menu -->
                 <li class="nav-item">
