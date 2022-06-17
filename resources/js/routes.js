@@ -30,6 +30,10 @@ let edittest = require('./components/test/edit.vue').default;
 let storeproduct = require('./components/product/create.vue').default;
 let product = require('./components/product/index.vue').default;
 let editproduct = require('./components/product/edit.vue').default;
+//Expense Component.........
+let storeexpense = require('./components/expense/create.vue').default;
+let expense = require('./components/expense/expense.vue').default;
+let editexpense = require('./components/expense/edit.vue').default;
 
 export const routes = [
     { path:'/',component:login, name:'/'},
@@ -51,16 +55,21 @@ export const routes = [
      {path: '/category', component:category, name:'category'},
      {path: '/edit_category/:id', component:editcategory, name:'edit_category'},
  
-     //Category Routes
+     //Test Routes
      {path: '/store_test', component:storetest, name:'store_test'},
      {path: '/test', component:test, name:'test'},
      {path: '/edit_test/:id', component:edittest, name:'edit_test'},
-      //Category Routes
+      //Product Routes
       {path: '/store_product', component:storeproduct, name:'store_product'},
       {path: '/product', component:product, name:'product'},
       {path: '/edit_product/:id', component:editproduct, name:'edit_product'},
- 
 
+       //Product Routes
+       {path: '/store_expense', component:storeexpense, name:'store_expense'},
+       {path: '/expense', component:expense, name:'expense'},
+       {path: '/edit_expense/:id', component:editexpense, name:'edit_expense'},
+  
+ 
 
 
  
