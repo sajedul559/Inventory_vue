@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\TestController;
+use App\Http\Controllers\Api\SalaryController;
 use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
@@ -49,3 +50,11 @@ Route::apiResource('/category',CategoryController::class);
 Route::apiResource('/test',TestController::class);
 Route::apiResource('/product',ProductController::class);
 Route::apiResource('/expense',ExpenseController::class);
+
+Route::post('/salary/paid/{id}',[SalaryController::class,'Paid']);
+Route::Get('/salary',[SalaryController::class,'allSalary']);
+Route::Get('/salary/view/{id}',[SalaryController::class,'viewSalary']);
+Route::Get('/salary/edit/{id}',[SalaryController::class,'editsalary']);
+Route::Post('/salary/update/{id}',[SalaryController::class,'updatesalary']);
+
+

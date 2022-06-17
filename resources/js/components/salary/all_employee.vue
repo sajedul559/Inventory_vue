@@ -5,13 +5,12 @@
               <a> Dashboard</a>
           </li>
           <li class="breadcrumb-item active">
-              <a> All Test </a>
+              <a> Add Employee</a>
           </li>
       </ol>
      <div class="card">
             <div class="card-header">
-               <i class="fas fa-chart-area"></i>Test Insert
-               <router-link to="/store_test" class="btn btn-sm btn-info float-right" id="add_new">Add New Test</router-link>
+               <i class="fas fa-chart-area"></i>Employee Salary Pay
             </div>
 
 
@@ -29,20 +28,26 @@
                                 <table class="table table-bordered mt-2" width="100%" cellspacing="0" >
                                     <thead class="" >
                                         <tr>
-                                            <th> Categorn Name</th>
-                                           
+                                            <th>Name</th>
+                                            <th>Photo</th>
+                                            <th>Phone</th>
+                                            <th>Salary</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     
                                     <tbody>
-                                        <tr v-for="category in categories " :key="category.id">
+                                        <tr v-for="employee in filtersearch " :key="employee.id">
 
-                                            <td>{{ category.category_name}}</td>
-                                           
+                                            <td>{{ employee.name}}</td>
                                             <td>
-                                                <a  @click="deletecategory(category.id)" class="btn btn-sm btn-danger">Delete</a>
-                                                <router-link  :to="{name:'edit_category',params:{id:category.id}}" class="btn btn-sm btn-info">Edit</router-link>
+                                                <img :src="employee.photo" alt="" id="em_photo">
+                                            </td>
+
+                                            <td>{{ employee.phone}}</td>
+                                            <td>{{ employee.salary}}</td>
+                                            <td>
+                                                <router-link  :to="{name:'pay_salary',params:{id:employee.id}}" class="btn btn-sm btn-info">Pay Salary</router-link>
 
                                             </td>
 
@@ -72,43 +77,30 @@ export default {
     },
     data(){
         return{
+         employees:[],
          searchTerm:''
         }
         
     },
-   
-    methods:{
+    computed:{
+      filtersearch(){
+        return  this.employees.filter(employee => {
+          return    employee.phone.match(this.searchTerm)
+          })
+      }
       
-        deletecategory(id){
-        Swal.fire({
-            title:'Are you sure?',
-            text:"You wan't be able to revert this!",
-            type:'warning',
-            showCancelButton:true,
-            confirmButtonColor:'#3085d6',
-            cancelButtonColor:'#d33',
-            confirmButtonText:'Yes, delete it!',
-           
-        }).then((result) => {
-            if(result.value){
-                axios.delete('/api/category/'+id)
-                .then(()=>{
-                    this.categories  = this.categories.filter(category =>{
-                        return category.id != id
-
-                    })
-                })
-                .catch(() =>{
-                    this.$router.push({name:'category'})
-                })
-                Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                )
-            }
-        })
-        }
+    },
+    methods:{
+        allEmployee(){
+            
+            axios.get('/api/employee/')
+            .then(({data}) => (this.employees = data))
+            .catch()
+        },
+       
+    },
+    created(){
+        this.allEmployee();
     }
 }
 </script>

@@ -5,13 +5,12 @@
               <a> Dashboard</a>
           </li>
           <li class="breadcrumb-item active">
-              <a> All Test </a>
+              <a> All Salary</a>
           </li>
       </ol>
      <div class="card">
             <div class="card-header">
-               <i class="fas fa-chart-area"></i>Test Insert
-               <router-link to="/store_test" class="btn btn-sm btn-info float-right" id="add_new">Add New Test</router-link>
+               <i class="fas fa-chart-area"></i>All Salary  Details
             </div>
 
 
@@ -29,20 +28,19 @@
                                 <table class="table table-bordered mt-2" width="100%" cellspacing="0" >
                                     <thead class="" >
                                         <tr>
-                                            <th> Categorn Name</th>
-                                           
-                                            <th>Action</th>
+                                            <th>Month Name</th>
+                                            <th>Details</th>
+                                            
                                         </tr>
                                     </thead>
                                     
                                     <tbody>
-                                        <tr v-for="category in categories " :key="category.id">
+                                        <tr v-for="salary in salaries " :key="salary.salary_month">
 
-                                            <td>{{ category.category_name}}</td>
+                                            <td>{{ salary.salary_month}}</td>
                                            
                                             <td>
-                                                <a  @click="deletecategory(category.id)" class="btn btn-sm btn-danger">Delete</a>
-                                                <router-link  :to="{name:'edit_category',params:{id:category.id}}" class="btn btn-sm btn-info">Edit</router-link>
+                                                <router-link  :to="{name:'view_salary',params:{id:salary.salary_month}}" class="btn btn-sm btn-info">View Salary</router-link>
 
                                             </td>
 
@@ -72,43 +70,30 @@ export default {
     },
     data(){
         return{
+         salaries:[],
          searchTerm:''
         }
         
     },
-   
-    methods:{
+    // computed:{
+    //   filtersearch(){
+    //     return  this.salaries.filter(salary => {
+    //       return    salary.amount.match(this.searchTerm)
+    //       })
+    //   }
       
-        deletecategory(id){
-        Swal.fire({
-            title:'Are you sure?',
-            text:"You wan't be able to revert this!",
-            type:'warning',
-            showCancelButton:true,
-            confirmButtonColor:'#3085d6',
-            cancelButtonColor:'#d33',
-            confirmButtonText:'Yes, delete it!',
-           
-        }).then((result) => {
-            if(result.value){
-                axios.delete('/api/category/'+id)
-                .then(()=>{
-                    this.categories  = this.categories.filter(category =>{
-                        return category.id != id
-
-                    })
-                })
-                .catch(() =>{
-                    this.$router.push({name:'category'})
-                })
-                Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                )
-            }
-        })
-        }
+    // },
+    methods:{
+        allSalary(){
+            
+            axios.get('/api/salary/')
+            .then(({data}) => (this.salaries = data))
+            .catch()
+        },
+       
+    },
+    created(){
+        this.allSalary();
     }
 }
 </script>

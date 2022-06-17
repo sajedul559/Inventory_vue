@@ -5,13 +5,13 @@
               <a> Dashboard</a>
           </li>
           <li class="breadcrumb-item active">
-              <a> Add Supplier</a>
+              <a> Add Test</a>
           </li>
       </ol>
      <div class="card">
             <div class="card-header">
-               <i class="fas fa-chart-area"></i>Supplier Insert
-               <router-link to="/category" class="btn btn-sm btn-info" id="add_new">All Category</router-link>
+               <i class="fas fa-chart-area"></i>Test Insert
+               <router-link to="/test" class="btn btn-sm btn-info" id="add_new">All Test</router-link>
             </div>
 
 
@@ -24,16 +24,22 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Insert New Category</h1>
+                                <h1 class="h4 text-gray-900 mb-4">Insert New Test</h1>
                             </div>
-                            <form @submit.prevent="categoryInsert" class="user">
+                            <form @submit.prevent="testInsert" class="user">
                                 
                                 <div class="form-group row">
 
                                     <div class="col-sm-12 col-md-12 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" id="name"
-                                            placeholder="Enter your fullname" v-model="form.category_name">
-                                        <small class="text-danger" v-if="errors.category_name">{{errors.category_name[0]}}</small>
+                                            placeholder="Enter your fullname" v-model="form.name">
+                                        <small class="text-danger" v-if="errors.name">{{errors.name[0]}}</small>
+
+                                    </div>
+                                      <div class="col-sm-12 col-md-12 mb-3 mb-sm-0">
+                                        <input type="text" class="form-control form-control-user" id="name"
+                                            placeholder="Enter your fullname" v-model="form.address">
+                                        <small class="text-danger" v-if="errors.address">{{errors.address[0]}}</small>
 
                                     </div>
                                     
@@ -80,7 +86,9 @@ export default{
     data(){
         return {
             form:{
-                category_name:'',
+                name:'',
+                address:'',
+
                             
             },
             errors:{
@@ -104,10 +112,10 @@ export default{
                 reader.readAsDataURL(file);          
         }
         },
-        categoryInsert(){
-          axios.post('/api/category/',this.form)
+        testInsert(){
+          axios.post('/api/test/',this.form)
           .then(() => {
-               this.$router.push({ name:'category'})
+               this.$router.push({ name:'test'})
                Notification.success();
 
           })

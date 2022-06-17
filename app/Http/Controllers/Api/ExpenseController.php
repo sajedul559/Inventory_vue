@@ -34,10 +34,10 @@ class ExpenseController extends Controller
         'details' =>'required',
         'amount' =>'required',
        ]);
-       return "update a aice";
        $expense = new Expense();
        $expense->details = $request->details;
        $expense->amount = $request->amount;
+       $expense->expense_date = $request->expense_date;
        $expense->save();
 
     }
@@ -66,7 +66,7 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $expense = Expense::findorfail($id);
+         $expense = Expense::findorfail($id);
         $expense->details = $request->details;
         $expense->amount = $request->amount;
         $expense->expense_date = $request->expense_date;
