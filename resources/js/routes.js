@@ -46,6 +46,12 @@ let allsalary = require('./components/salary/index.vue').default;
 let viewsalary = require('./components/salary/view.vue').default;
 let editsalary = require('./components/salary/edit.vue').default;
 
+//Customer Component
+let customer = require('./components/customer/index.vue').default;
+let editcustomer = require('./components/customer/edit.vue').default;
+let customercreate = require('./components/customer/create.vue').default;
+
+
 
 
 
@@ -93,6 +99,13 @@ export const routes = [
        {path: '/allsalary', component:allsalary, name:'allsalary'},
        {path: '/viewsalary/:id', component:viewsalary, name:'view_salary'},
        {path: '/editsalary/:id', component:editsalary, name:'edit_salary'},
+
+       //Customer Routes
+       {path: '/creatcustomer', component:customercreate, name:'customer_create'},
+       {path: '/customer', component:customer, name:'customer'},
+       {path: '/editcustomer', component:editcustomer, name:'customer_edit'},
+
+
 
 
 

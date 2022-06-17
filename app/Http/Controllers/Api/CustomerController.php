@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Employee;
-Use Image;
-Use DB;
-
-class EmployeeController extends Controller
+use DB;
+use Image;
+use App\Models\Customer;
+class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +16,12 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employee = Employee::all();
-        return response()->json($employee);
+        $customer = Customer::all();
+        return response()->json($customer);
     }
 
    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -30,11 +30,10 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        
         $validatedData = $request->validate([
-            'name' =>'required|unique:employees|max:255',
+            'name' =>'required|unique:customers|max:255',
             'email' =>'required',
-            'phone' =>'required|unique:employees',
+            'phone' =>'required|unique:customers',
 
         ]);
         if($request->photo){
@@ -44,33 +43,27 @@ class EmployeeController extends Controller
             $ext = explode('/',$sub)[1];
             $name = time().".".$ext;
             $img = Image::make($image)->resize(200,200);
-            $upload_path = 'backend/employee/';
+            $upload_path = 'backend/customer/';
             $image_url = $upload_path.$name;
             $img->save($image_url);
 
-            $employee = new Employee;
-            $employee->name = $request->name;
-            $employee->email = $request->email;
-            $employee->phone = $request->phone;
-            $employee->address = $request->address;
-            $employee->salary = $request->salary;
-            $employee->nid = $request->nid;
-            $employee->joining_date = $request->joining_date;
-            $employee->photo = $image_url;
-            $employee->save();
+            $customer = new Customer;
+            $customer->name = $request->name;
+            $customer->email = $request->email;
+            $customer->phone = $request->phone;
+            $customer->address = $request->address;
+            $customer->photo = $image_url;
+            $customer->save();
 
         }
         else{
 
-            $employee = new Employee;
-            $employee->name = $request->name;
-            $employee->email = $request->email;
-            $employee->phone = $request->phone;
-            $employee->address = $request->address;
-            $employee->salary = $request->salary;
-            $employee->nid = $request->nid;
-            $employee->joining_date = $request->joining_date;
-            $employee->save();
+            $customer = new Customer;
+            $customer->name = $request->name;
+            $customer->email = $request->email;
+            $customer->phone = $request->phone;
+            $customer->address = $request->address;
+            $customer->save();
         }
          
     }
@@ -83,11 +76,11 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        $employee = DB::table('employees')->where('id',$id)->first();
-        return response()->json($employee);
+        $customer = DB::table('customers')->where('id',$id)->first();
+        return response()->json($customer);
     }
 
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -97,17 +90,12 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-       // return $request->all();
+        // return $request->all();
         $data = array();
         $data['name'] = $request->name;
         $data['email'] = $request->email;
         $data['phone'] = $request->phone;
         $data['address'] = $request->address;
-        $data['salary'] = $request->salary;
-        $data['nid'] = $request->nid;
-        $data['joining_date'] = $request->joining_date;
-        
 
         if($request->newphoto)
         {
@@ -118,29 +106,29 @@ class EmployeeController extends Controller
             $ext = explode('/',$sub)[1];
             $name = time().".".$ext;
             $img = Image::make($image)->resize(200,200);
-            $upload_path = 'backend/employee/';
+            $upload_path = 'backend/customer/';
             $image_url = $upload_path.$name;
             $success =  $img->save($image_url);
             if($success)
             {
-              $img = Employee::findorfail($id);
+              $img = Customer::findorfail($id);
               $image_path = $img->photo;
 
               if($image_path){
                  unlink($image_path);
                 $data['photo'] = $image_url;
-                $user = Employee::findorfail($id)->update($data);
+                $user = Customer::findorfail($id)->update($data);
 
 
               }
               else{
 
-                $img = Employee::findorfail($id);
+                $img = Customer::findorfail($id);
                 $image_path = $img->photo; 
 
               
                 $data['photo'] = $image_url;
-                $user = Employee::findorfail($id)->update($data); $user = Employee::findorfail($id)->update($data);
+                $user = Customer::findorfail($id)->update($data); 
 
               }
               
@@ -150,9 +138,9 @@ class EmployeeController extends Controller
          else
          {
 
-               $oldlogo = $request->photo;
+                $oldlogo = $request->photo;
                 $data['photo']= $oldlogo;
-                $user = Employee::findorfail($id)->update($data);
+                $user = Customer::findorfail($id)->update($data);
             }
 
         
@@ -167,16 +155,17 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-       $employee = Employee::findorfail($id)->first();
-       //return response()->json($employee);
-       if($employee->photo){
-        unlink($employee->photo);
-        $employee->delete();
-
-       }
-       else{
-        $employee = Employee::findorfail($id)->delete();
-
-       }
-    }
-}
+        $customer = Customer::findorfail($id)->first();
+        //return response()->json($customer);
+        if($customer->photo){
+         unlink($customer->photo);
+         $customer->delete();
+ 
+        }
+        else{
+         $customer = Customer::findorfail($id)->delete();
+ 
+        }
+     }
+ }
+ 

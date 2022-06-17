@@ -100,6 +100,19 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link collapsed" to="#" data-toggle="collapse" data-target="#customer"
+                        aria-expanded="true" aria-controls="customer">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Customer</span>
+                    </a>
+                    <div id="customer" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <router-link class="collapse-item" to="/creatcustomer">Add Customer</router-link>
+                            <router-link class="collapse-item" to="/customer">All Customer</router-link>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link collapsed" to="#" data-toggle="collapse" data-target="#category"
                         aria-expanded="true" aria-controls="category">
                         <i class="fas fa-fw fa-cog"></i>
