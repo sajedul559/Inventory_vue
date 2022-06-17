@@ -4,6 +4,10 @@ let register = require('./components/auth/register.vue').default;
 let forget = require('./components/auth/forget.vue').default;
 let logout = require('./components/auth/logout.vue').default;
 let home = require('./components/home.vue').default;
+let stock = require('./components/product/stock.vue').default;
+let editstock = require('./components/product/edit_stock.vue').default;
+
+
 
 //End Authentication..........
 
@@ -51,6 +55,10 @@ export const routes = [
     {path: '/forget', component:forget, name:'forget'},
     {path: '/home', component:home, name:'home'},
     {path: '/logout', component:logout, name:'logout'},
+    {path: '/stock', component:stock, name:'stock'},
+    {path: '/editstock', component:editstock, name:'edit_stock'},
+
+
      //Employee Routes
     {path: '/store_employee', component:storeemployee, name:'store_employee'},
     {path: '/employee', component:employee, name:'employee'},
@@ -85,6 +93,8 @@ export const routes = [
        {path: '/allsalary', component:allsalary, name:'allsalary'},
        {path: '/viewsalary/:id', component:viewsalary, name:'view_salary'},
        {path: '/editsalary/:id', component:editsalary, name:'edit_salary'},
+
+
 
 
 

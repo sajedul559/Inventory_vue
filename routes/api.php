@@ -56,5 +56,7 @@ Route::Get('/salary',[SalaryController::class,'allSalary']);
 Route::Get('/salary/view/{id}',[SalaryController::class,'viewSalary']);
 Route::Get('/salary/edit/{id}',[SalaryController::class,'editsalary']);
 Route::Post('/salary/update/{id}',[SalaryController::class,'updatesalary']);
+Route::Post('/stock/update/{id}',[SalaryController::class,'updatestock']);
+
 
 

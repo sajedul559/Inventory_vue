@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\Employee;
 use App\Models\Salary;
+use App\Models\Product;
+
 
 class SalaryController extends Controller
 {
@@ -68,5 +70,13 @@ class SalaryController extends Controller
         $data['salary_month']= $request->salary_month;
         DB::table('salaries')->where('id',$id)->update($data);
     
+    }
+
+    public function updatestock(Request $request, $id)
+    {
+       // return $request->all();
+       $product = Product::findorfail($id);
+       $product->product_quantity = $request->product_quantity;
+       $product->save();
     }
 }
