@@ -40,7 +40,7 @@ import Notification from './Helpers/Notification'
   });
   window.Toast = Toast;
  //sweet alert end
-
+  window.Reload = new Vue();
  
  const router = new VueRouter({
      routes,

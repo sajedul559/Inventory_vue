@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\PosController;
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\TestController;
 use App\Http\Controllers\Api\SalaryController;
 use App\Http\Controllers\Api\ExpenseController;
@@ -64,4 +65,8 @@ Route::Post('/stock/update/{id}',[SalaryController::class,'updatestock']);
 
 
 Route::get('/geeting/product/{id}',[PosController::class,'getProduct']);
+Route::get('/addToCart/{id}',[CartController::class,'addToCart']);
 
+Route::get('/cart/product',[CartController::class,'cartProduct']);
+
+Route::get('/cart/remove/{id}',[CartController::class,'removeCart']);

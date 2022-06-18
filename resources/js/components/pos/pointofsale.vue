@@ -32,12 +32,15 @@
 
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Hp 8480 laptop</td>
-                                            <td>2</td>
-                                            <td>42000</td>
-                                            <td>84009</td>
-                                            <td><a href="" class="btn btn-sm btn-danger">x</a></td>
+                                        <tr v-for="card in cards" :key="card.id">
+                                            <td>{{card.pro_name}}</td>
+                                        
+                                            <td> <input type="text" readonly=" " style="width:20px;" :value="card.pro_quantity">
+                                               <button class="btn btn-sm btn-success">+</button>
+                                               <button class="btn btn-sm btn-danger">-</button>
+                                            </td>
+                                            <td>{{card.sub_total}}</td>
+                                            <td><a @click="removeitem(card.id)" class="btn btn-sm btn-danger">x</a></td>
 
                                         </tr>
                                         
@@ -202,14 +205,14 @@
 
                                                 <div class="col-lg-3 col-md-8 col-sm-6 col-6" v-for="product in filtersearch " :key="product.id">
                                                     <div class="card" style="width: 10rem;">
-                                                    <a href="">
+                                                    <button  class="btn btn-sm" @click.prevent="addToCart(product.id)">
                                                         <img :src="product.image" alt="" id="em_photo">
                                                         <div class="card-body">
                                                             <small  class="card-link">{{product.product_name}}</small> <br>
                                                             <span v-if="product.product_quantity >= 1" class="badge badge-success">Available({{product.product_quantity}})</span>
                                                             <span v-else="" class="badge badge-danger">Stock Out</span>
                                                         </div>
-                                                    </a>
+                                                    </button>
                                                         
                                                     </div>
                                                 </div>
@@ -278,7 +281,9 @@ export default {
     data(){
         return{
             form:{
-               name:'',
+                details:'',
+                amount:'',
+                name:'',
                 email:'',
                 address:'',
                 photo:'',
@@ -291,7 +296,8 @@ export default {
          getproducts:'',
          getsearchTerm:'',
          customers:'',
-         errors:''
+         errors:'',
+         cards:''
         }
         
     },
@@ -309,6 +315,30 @@ export default {
       
     },
     methods:{
+        //cart methods
+        addToCart(id){
+        axios.get('/api/addToCart/'+id)
+        .then(() => {
+            Reload.$emit('AfterAdd');
+            Notification.cart_success()
+        })
+
+        },
+        cartProduct(){
+            axios.get('/api/cart/product/')
+            .then(({data}) => (this.cards = data))
+            .catch()
+        },
+        removeitem(id){
+         axios.get('/api/cart/remove/'+id)
+          .then(() => {
+           Reload.$emit('AfterAdd');
+
+            Notification.cart_success()
+        })
+            .catch()
+        },
+        //End Card methods
         allProduct(){
             
             axios.get('/api/product/')
@@ -350,8 +380,10 @@ export default {
           axios.post('/api/customer/',this.form)
           .then(() => {
             $('#closeModal').click();
-               this.$router.push({ name:'pos'})
                Notification.success();
+               this.customers = this.customers.filter(customer =>{
+                return customer.id !=id
+               })
 
           })
           .catch( error => this.errors = error.response.data.errors)
@@ -363,6 +395,10 @@ export default {
         this.allProduct();
         this.allCategory();
         this.allCustomer();
+        this.cartProduct();
+        Reload.$on('AfterAdd', () => {
+            this.cartProduct();
+        })
     }
 }
 </script>
