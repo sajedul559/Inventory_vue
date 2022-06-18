@@ -5,13 +5,13 @@
               <a> Dashboard</a>
           </li>
           <li class="breadcrumb-item active">
-              <a> Add Employee</a>
+              <a> Add Customer</a>
           </li>
       </ol>
      <div class="card">
             <div class="card-header">
-               <i class="fas fa-chart-area"></i>Employee Insert
-               <router-link to="/employee" class="btn btn-sm btn-info" id="add_new">All Employee</router-link>
+               <i class="fas fa-chart-area"></i>Customer Insert
+               <router-link to="/customer" class="btn btn-sm btn-info" id="add_new">All Customer</router-link>
             </div>
 
 
@@ -24,7 +24,7 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Insert New Employee</h1>
+                                <h1 class="h4 text-gray-900 mb-4">Insert New Customer</h1>
                             </div>
                             <form @submit.prevent="customerInsert" class="user">
                                 

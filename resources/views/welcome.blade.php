@@ -58,7 +58,7 @@
                         <span>Dashboard</span></router-link>
                 </li>
                 <li class="nav-item  danger" style="background-color:red;">
-                    <router-link class="nav-link" to="/home">
+                    <router-link class="nav-link" to="/pos">
                         <i class="fas fa-fw fa-tachometer-alt "></i>
                         <span class="text-white"> <b>POS</b></span></router-link>
                 </li>

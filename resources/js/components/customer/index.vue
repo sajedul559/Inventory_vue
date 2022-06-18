@@ -5,13 +5,13 @@
               <a> Dashboard</a>
           </li>
           <li class="breadcrumb-item active">
-              <a> Add Employee</a>
+              <a> Add Customer</a>
           </li>
       </ol>
      <div class="card">
             <div class="card-header">
-               <i class="fas fa-chart-area"></i>Employee Insert
-               <router-link to="/store_employee" class="btn btn-sm btn-info float-right" id="add_new">Add New</router-link>
+               <i class="fas fa-chart-area"></i>Customer Insert
+               <router-link to="/creatcustomer" class="btn btn-sm btn-info float-right" id="add_new">Add New</router-link>
             </div>
 
 
