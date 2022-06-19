@@ -70,3 +70,18 @@ Route::get('/addToCart/{id}',[CartController::class,'addToCart']);
 Route::get('/cart/product',[CartController::class,'cartProduct']);
 
 Route::get('/cart/remove/{id}',[CartController::class,'removeCart']);
+
+Route::get('/cart/increment/{id}',[CartController::class,'incrementCart']);
+Route::get('/cart/decrement/{id}',[CartController::class,'decrementCart']);
+Route::get('/vats',[CartController::class,'vats']);
+
+Route::get('/cart/quantity',[CartController::class,'cartQuantity']);
+Route::get('/cart/subtotal',[CartController::class,'cartSubTotal']);
+Route::post('/order',[PosController::class,'order']);
+
+
+
+
+
+
+

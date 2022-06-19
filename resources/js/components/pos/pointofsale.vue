@@ -20,7 +20,6 @@
                     <div class="">
                          <div class="card shadow mb-4">
                         
-                       <form action="">
                             <div class="card-body">
                                 <table class="table table-sm table-striped">
                                     <thead>
@@ -36,9 +35,12 @@
                                             <td>{{card.pro_name}}</td>
                                         
                                             <td> <input type="text" readonly=" " style="width:20px;" :value="card.pro_quantity">
-                                               <button class="btn btn-sm btn-success">+</button>
-                                               <button class="btn btn-sm btn-danger">-</button>
+                                               <button @click.prevent="increment(card.id)" class="btn btn-sm btn-success">+</button>
+                                               <button @click.prevent="decrement(card.id)" class="btn btn-sm btn-danger" v-if="card.pro_quantity >= 2">-</button>
+                                               <button class="btn btn-sm btn-danger" v-else="" disabled="">-</button>
                                             </td>
+                                             <td>{{card.product_price}}</td>
+
                                             <td>{{card.sub_total}}</td>
                                             <td><a @click="removeitem(card.id)" class="btn btn-sm btn-danger">x</a></td>
 
@@ -52,45 +54,49 @@
                                     <ul class="list-group">
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             Total Quantity :
-                                            <strong>2</strong>
+                                            <strong>{{qty}}</strong>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                              Sub Total : 
-                                            <strong>2000</strong>
+                                            <strong>{{subtotal}}</strong>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             Vat :
-                                            <strong>5%</strong>
+                                            <strong>{{vats.vat}}%</strong>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             Total  : 
-                                            <strong>120000</strong>
+                                            <strong>{{subtotal*vats.vat/100 +subtotal}}</strong>
                                         </li>
                                     </ul> 
+                                   <form @submit.prevent="orderdone">
+
                                         <br>
                                         <label>Customer Name</label>
-                                        <select class="form-control">
-                                            <option v-for="customer in customers" :key="customer.name">{{customer.name}}</option>
-                                            
-
+                                        <select class="form-control" v-model="customer_id">
+                                            <option :value="customer.id" v-for="customer in customers" :key="customer.name">{{customer.name}}</option>
                                         </select>
+                                        <label for="">Pay</label>
+                                        <input type="text" class="form-control" required="" v-model="pay">
+
                                         <label for="">Due</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" required="" v-model="due">
 
                                         <label for="">Pay By</label>
-                                         <select class="form-control">
-                                            <option>Hand Cash</option>
-                                            <option>Bkash</option>
-                                            <option>Gift Card</option>
+                                         <select class="form-control" v-model="payby">
+                                            <option value="HandCash">Hand Cash</option>
+                                            <option value="Cheaque">Cheaque</option>
+                                            <option value="GiftCard">Gift Card</option>
                                         </select>
                                         <br>
                                         <button type="submit" class="btn btn-success">Submit</button>
+                                    </form>
+
 
 
                                 </div>
                                
                         </div>
-                       </form>
                     </div>
                     <!-- Modal for add Customer -->
                             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -289,7 +295,10 @@ export default {
                 photo:'',
                 phone:'',               
             },
-            
+         customer_id:'',
+         pay:'',
+         due:'',
+         payby:'',
          products:[],
          searchTerm:'',
          categories:'',
@@ -297,7 +306,10 @@ export default {
          getsearchTerm:'',
          customers:'',
          errors:'',
-         cards:''
+         cards:'',
+         vats:'',
+         qty:'',
+         subtotal:''
         }
         
     },
@@ -307,6 +319,19 @@ export default {
           return    product.product_name.match(this.searchTerm)
           })
       },
+    //   subtotal(){
+    //     let sum = 0;
+    //     for(let i = 0; i<this.cards.length; i++){
+    //         sum += this.cards[i].pro_price;
+    //     }
+    //   }
+    //   qty(){
+    //      let sum = 0;
+    //      for(let i = 0; i < this.cards.length; i++){
+    //         sum += (parseFloat(this.cards[i].pro_quantity))
+
+    //      }
+    //   },
       getfiltersearch(){
         return this.getproducts.filter(getproduct =>{
             return getproduct.product_name.match(this.getsearchTerm)
@@ -336,6 +361,48 @@ export default {
 
             Notification.cart_success()
         })
+            .catch()
+        },
+        increment(id){
+         axios.get('/api/cart/increment/'+id)
+        .then(() => {
+            Reload.$emit('AfterAdd');
+            Notification.cart_success()
+        })
+
+        },
+        decrement(id){
+          axios.get('/api/cart/decrement/'+id)
+           .then(() => {
+            Reload.$emit('AfterAdd');
+            Notification.cart_success()
+        })
+
+
+        },
+        vat(){
+            axios.get('/api/vats/')
+            .then(({data}) => (this.vats = data))
+            .catch()
+
+        },
+        orderdone(){
+            let total = this.subtotal*this.vats.vat/100 + this.subtotal;
+            var data = {qty:this.qty,sub_total:this.subtotal, customer_id:this.customer_id, payby:this.payby, pay:this.pay, due:this.due,vat:this.vats.vat, total:total}
+             axios.post('/api/order/',data)
+             .then(() => {
+               Notification.success();
+              this.$router.push({name: 'home' })
+          })
+        },
+        cartQuantity(){
+             axios.get('/api/cart/quantity/')
+            .then(({data}) => (this.qty = data))
+            .catch()
+        },
+        subtotalAmount(){
+             axios.get('/api/cart/subtotal/')
+            .then(({data}) => (this.subtotal = data))
             .catch()
         },
         //End Card methods
@@ -396,8 +463,15 @@ export default {
         this.allCategory();
         this.allCustomer();
         this.cartProduct();
+        this.vat();
+        this.subtotalAmount();
+        this.cartQuantity();
         Reload.$on('AfterAdd', () => {
             this.cartProduct();
+            this.cartQuantity();
+            this.subtotalAmount();
+
+
         })
     }
 }
