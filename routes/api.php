@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\PosController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\TestController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\SalaryController;
 use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\ProductController;
@@ -79,6 +80,11 @@ Route::get('/cart/quantity',[CartController::class,'cartQuantity']);
 Route::get('/cart/subtotal',[CartController::class,'cartSubTotal']);
 Route::post('/order',[PosController::class,'order']);
 
+
+
+Route::get('/orders',[OrderController::class,'todayOrders']);
+Route::get('/order/details/{id}',[OrderController::class,'orderDetails']);
+Route::get('/order/order_details/{id}',[OrderController::class,'orderDetailsAll']);
 
 
 

@@ -214,6 +214,19 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link collapsed" to="#" data-toggle="collapse" data-target="#order"
+                        aria-expanded="true" aria-controls="order">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Orders</span>
+                    </a>
+                    <div id="order" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <router-link class="collapse-item" to="/order">Today Order</router-link>
+                            <router-link class="collapse-item" to="/category">Search</router-link>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link collapsed" to="#" data-toggle="collapse" data-target="#report"
                         aria-expanded="true" aria-controls="report">
                         <i class="fas fa-fw fa-cog"></i>

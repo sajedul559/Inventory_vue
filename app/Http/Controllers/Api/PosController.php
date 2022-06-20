@@ -46,7 +46,7 @@ class PosController extends Controller
             $odata['product_id'] = $content->pro_id;
             $odata['pro_quantity'] = $content->pro_quantity;
             $odata['product_price'] = $content->product_price;
-            $odata['sub_total'] = $request->sub_total;
+            $odata['sub_total'] = $content->sub_total;
             DB::table('order_details')->insert($odata);
 
             DB::table('products')->where('id',$content->pro_id)->update(['product_quantity' => DB::raw('product_quantity -'.$content->pro_quantity)]);

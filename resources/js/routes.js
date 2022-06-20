@@ -53,6 +53,11 @@ let customercreate = require('./components/customer/create.vue').default;
 
 //Point of sale component
 let pos = require('./components/pos/pointofsale.vue').default;
+let order = require('./components/order/order.vue').default;
+let vieworder = require('./components/order/view.vue').default;
+let orderview = require('./components/order/orderview.vue').default;
+
+
 
 
 export const routes = [
@@ -108,6 +113,14 @@ export const routes = [
        //Point of sale----
 
        {path: '/pos', component:pos, name:'pos'},
+
+       {path: '/order', component:order, name:'order'},
+       
+       {path: '/view-order/:id ', component:vieworder, name:'view_order'},
+
+      // {path: '/order-view/:id ', component:orderview, name:'order_view'},
+
+
 
 
 
